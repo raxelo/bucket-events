@@ -8,25 +8,21 @@ TypeScript event library inspired on Bukkit's event system and [ReflectedEventHa
 ## Usage
 
 
+> This code is taken from [one of the examples](https://github.com/pragmare/bucket-events/tree/main/examples/example-1)
+
 ```ts
-import { newEventManager, useEventManager } from 'bucket-events';
-import ChatEvent from './chatEvent'
+import ChatListener from './ChatListener';
+import ChatEvent from './ChatEvent';
+import { newEventManager } from '../../index';
 
-// You can create a new event manager:
-const eventManager = newEventManager();
+// Create a new event manager:
+const manager = newEventManager();
 
-// Or use the global one:
-const globalEventManager = useEventManager();
+const listener = new ChatListener();
 
+// Register all event handlers on a listener instance:
+manager.registerEvents(listener);
 
-// Then, register event handlers:
-
-
-// In a functional way:
-eventManager
-
-
-// You can register event handlers in a functional way:
-
-
+// Fire an event:
+manager.fire(new ChatEvent('Lucas', 'hello world!')); // "author: Lucas, body: hello world!"
 ```
