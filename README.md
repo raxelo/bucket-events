@@ -4,6 +4,11 @@ TypeScript event library inspired on Bukkit's event system and [ReflectedEventHa
 
 > ⚠️ If you want to enjoy the library to the fullest and use [decorators](https://www.typescriptlang.org/docs/handbook/decorators.html) to register event handlers, you must enable [`experimentalDecorators`](https://www.typescriptlang.org/tsconfig#experimentalDecorators) & [`emitDecoratorMetadata`](https://www.typescriptlang.org/tsconfig/emitDecoratorMetadata.html) on your [`tsconfig`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file.
 
+## Installation
+
+```
+npm i bucket-events
+```
 
 ## Usage
 
