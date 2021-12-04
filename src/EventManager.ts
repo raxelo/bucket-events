@@ -8,7 +8,7 @@ export default interface EventManager {
    *
    * @param eventListener the {@link EventListener} to register.
    */
-  registerEvents(eventListener: BucketEventListener);
+  registerEvents(eventListener: BucketEventListener): void;
 
   /**
    * Fires a given event.
@@ -17,7 +17,7 @@ export default interface EventManager {
    *
    * @param event the {@link Event}.
    */
-  fire(event: BucketEvent);
+  fire(event: BucketEvent): void;
 
   /**
    * Provides a functional approach to register event handlers.
@@ -30,5 +30,5 @@ export default interface EventManager {
     eventType: new (...args) => E,
     method: (event: E) => void,
     eventHandlerSettings?: Partial<EventHandlerSettings>,
-  );
+  ): void;
 }
