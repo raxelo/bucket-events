@@ -3,6 +3,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,    
     "lib": ["ESNext", "DOM"],
-    "target": "es6"
+    "target": "es6",
+    "paths": {
+      "bucket-events": ["./index.ts"]
+    }
   },
 }

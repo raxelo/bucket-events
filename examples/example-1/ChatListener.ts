@@ -1,5 +1,5 @@
 import ChatEvent from './ChatEvent';
-import { BucketEventListener, EventHandler } from '../../index';
+import { BucketEventListener, EventHandler } from 'bucket-events';
 
 export default class ChatListener extends BucketEventListener {
   @EventHandler()

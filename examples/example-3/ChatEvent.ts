@@ -1,4 +1,4 @@
-import { BucketEvent } from '../../index';
+import { BucketEvent } from 'bucket-events';
 
 export default class ChatEvent extends BucketEvent {
   author: string;

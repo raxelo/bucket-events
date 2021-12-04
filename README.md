@@ -18,7 +18,7 @@ npm i bucket-events
 ```ts
 import ChatListener from './ChatListener';
 import ChatEvent from './ChatEvent';
-import { newEventManager } from '../../index';
+import { newEventManager } from 'bucket-events';
 
 // Create a new event manager:
 const manager = newEventManager();

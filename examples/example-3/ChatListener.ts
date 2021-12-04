@@ -1,5 +1,5 @@
 import ChatEvent from './ChatEvent';
-import { BucketEventListener, EventHandler, EventPriority } from '../../index';
+import { BucketEventListener, EventHandler, EventPriority } from 'bucket-events';
 
 export default class ChatListener extends BucketEventListener {
   private bannedNames = ['lucas', 'raxel'];

@@ -1,6 +1,6 @@
 import ChatEvent from './ChatEvent';
 import ChatListener from './ChatListener';
-import { useEventManager } from '../../index';
+import { useEventManager } from 'bucket-events';
 
 // Use the global event manager:
 const manager = useEventManager();
