@@ -4,8 +4,12 @@
     "experimentalDecorators": true,    
     "lib": ["ESNext", "DOM"],
     "target": "es6",
+    "module": "CommonJS",
+    "outDir": "./dist",
     "paths": {
       "bucket-events": ["./index.ts"]
-    }
+    },
   },
+  "include": ["./src", "./index.ts"],
+  "exclude": ["./node_modules", "./examples"]
 }
