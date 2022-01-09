@@ -8,9 +8,14 @@ class ClassEventHandler implements RegisteredEventHandler {
   listener: BucketEventListener;
 
   invoke(event: BucketEvent) {
-    const method = this.data.method;
-    const args = [event];
-    method.apply(this.listener, args);
+    try {
+      const method = this.data.method;
+      const args = [event];
+      method.apply(this.listener, args);
+    } catch (err) {
+      console.log(`Error while handling ${this.data.eventType.name} on ${this.data.listenerClass.name}.`);
+      console.log(err);
+    }
   }
 
   constructor(data: ClassEventHandlerData, listener: BucketEventListener) {

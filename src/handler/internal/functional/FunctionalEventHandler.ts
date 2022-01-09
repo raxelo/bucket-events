@@ -8,7 +8,11 @@ import RegisteredEventHandler from '../../RegisteredEventHandler';
 class FunctionalEventHandler implements RegisteredEventHandler {
   data: EventHandlerData;
   invoke(event: BucketEvent) {
-    this.data.method(event);
+    try {
+      this.data.method(event);
+    } catch (err) {
+      console.log(`Error while handling ${this.data.eventType.name} on a functional event handler.`);
+    }
   }
 
   constructor(
