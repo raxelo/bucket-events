@@ -17,7 +17,8 @@
     "reflection"
   ],
   "scripts": {
-    "build": "tsc --declaration"
+    "build": "tsc --declaration",
+    "test": "vitest"
   },
   "author": "Pragmare",
   "license": "ISC",
