@@ -2,10 +2,20 @@
   "name": "bucket-events",
   "version": "1.0.6",
   "description": "",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
-  "keywords": ["typescript", "event handler", "event manager", "bucket", "event", "decorator", "reflection"],
+  "keywords": [
+    "typescript",
+    "event handler",
+    "event manager",
+    "bucket",
+    "event",
+    "decorator",
+    "reflection"
+  ],
   "scripts": {
     "build": "tsc --declaration"
   },
