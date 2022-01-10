@@ -7,6 +7,10 @@ import ClassEventHandlerData from '../handler/internal/class/ClassEventHandlerDa
 
 const staticEventHandlerMap: Map<ListenerClass, ClassEventHandlerData[]> = new Map();
 
+function getErrorMessage(methodName: string, target: any) {
+  return 'Error when registering event handler with name ' + methodName + ' on ' + target.constructor.name;
+}
+
 /**
  * TypeScript decorator to register event handlers on a listener class.
  *
@@ -16,7 +20,7 @@ function EventHandler(settings?: Partial<EventHandlerSettings>): MethodDecorator
   const decorator = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const args = Reflect.getMetadata('design:paramtypes', target, propertyKey);
     if (!args || args.length !== 1) {
-      throw 'error.';
+      throw new Error(getErrorMessage(propertyKey, target));
     }
 
     const eventType = args[0];
