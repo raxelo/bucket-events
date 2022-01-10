@@ -17,7 +17,7 @@
     "reflection"
   ],
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "tsc --declaration -p tsconfig.build.json",
     "test": "vitest --silent"
   },
   "author": "Pragmare",
