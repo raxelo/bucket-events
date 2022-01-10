@@ -12,6 +12,7 @@ class FunctionalEventHandler implements RegisteredEventHandler {
       this.data.method(event);
     } catch (err) {
       console.log(`Error while handling ${this.data.eventType.name} on a functional event handler.`);
+      console.log(err);
     }
   }
 
