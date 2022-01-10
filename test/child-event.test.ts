@@ -1,4 +1,4 @@
-import { BucketEvent, BucketEventListener, EventHandler, useEventManager } from '../index';
+import { BucketEvent, BucketEventListener, EventHandler, newEventManager } from '../index';
 import { expect, test } from 'vitest';
 
 class ParentEvent extends BucketEvent {
@@ -24,17 +24,50 @@ class TestListenerAddToCounter extends BucketEventListener {
   }
 }
 
-const eventManager = useEventManager();
-eventManager.registerEvents(new TestListenerAddToCounter());
+test('Parent event using class handler', () => {
+  const eventManager = newEventManager();
+  eventManager.registerEvents(new TestListenerAddToCounter());
 
-test('Parent event', () => {
   const myParentEvent = new ParentEvent();
   eventManager.fire(myParentEvent);
 
   expect(myParentEvent.counter).toBe(1);
 });
 
-test('Child event', () => {
+test('Child event using class handler', () => {
+  const eventManager = newEventManager();
+  eventManager.registerEvents(new TestListenerAddToCounter());
+
+  const myChildEvent = new ChildEvent();
+  eventManager.fire(myChildEvent);
+
+  expect(myChildEvent.counter).toBe(3);
+});
+
+test('Parent event using functional handler', () => {
+  const eventManager = newEventManager();
+  eventManager.on(ChildEvent, (event) => {
+    event.counter += 2;
+  });
+  eventManager.on(ParentEvent, (event) => {
+    event.counter += 1;
+  });
+
+  const myChildEvent = new ChildEvent();
+  eventManager.fire(myChildEvent);
+
+  expect(myChildEvent.counter).toBe(3);
+});
+
+test('Child event using functional handler', () => {
+  const eventManager = newEventManager();
+  eventManager.on(ChildEvent, (event) => {
+    event.counter += 2;
+  });
+  eventManager.on(ParentEvent, (event) => {
+    event.counter += 1;
+  });
+
   const myChildEvent = new ChildEvent();
   eventManager.fire(myChildEvent);
 

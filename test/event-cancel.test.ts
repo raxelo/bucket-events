@@ -1,4 +1,4 @@
-import { BucketEvent, BucketEventListener, EventHandler, useEventManager } from '../index';
+import { BucketEvent, BucketEventListener, EventHandler, newEventManager } from '../index';
 import { expect, test } from 'vitest';
 
 class TestEvent extends BucketEvent {
@@ -24,9 +24,8 @@ class TestListenerAddToCounterIgnoreCancelled extends BucketEventListener {
   }
 }
 
-const eventManager = useEventManager();
-
-test('Cancel an event', () => {
+test('Cancel an event using class handler', () => {
+  const eventManager = newEventManager();
   eventManager.registerEvents(new TestListenerAddToCounter());
 
   const myEvent = new TestEvent();
@@ -51,7 +50,40 @@ test('Cancel an event', () => {
 
   // Uncancel the event.
   myEvent.setCancelled(false);
-  console.log(myEvent.counter);
+
+  eventManager.fire(myEvent);
+  eventManager.fire(myEvent);
+
+  expect(myEvent.counter).toBe(12);
+});
+
+test('Cancel an event using functional handler', () => {
+  const eventManager = newEventManager();
+  eventManager.on(TestEvent, (event) => {
+    event.counter += 3;
+  });
+
+  const myEvent = new TestEvent();
+  eventManager.fire(myEvent);
+
+  // The event is cancelled now so the 2 following calls shouldn't do anything.
+  myEvent.setCancelled(true);
+  eventManager.fire(myEvent);
+  eventManager.fire(myEvent);
+
+  expect(myEvent.counter).toBe(3);
+
+  eventManager.on(
+    TestEvent,
+    (event) => {
+      event.counter += 1;
+    },
+    { ignoreCancelled: true },
+  );
+
+  eventManager.fire(myEvent);
+  expect(myEvent.counter).toBe(4);
+  myEvent.setCancelled(false);
 
   eventManager.fire(myEvent);
   eventManager.fire(myEvent);

@@ -1,5 +1,10 @@
-import { BucketEvent, BucketEventListener, EventHandler, useEventManager } from '../index';
+import { BucketEvent, BucketEventListener, EventHandler, newEventManager } from '../index';
 import { expect, test } from 'vitest';
+
+function generateException() {
+  const emptyArr = [];
+  emptyArr[0].unexistentMethod();
+}
 
 class TestMessageEvent extends BucketEvent {
   message = 'hello!';
@@ -8,8 +13,7 @@ class TestMessageEvent extends BucketEvent {
 class TestListenerWithError extends BucketEventListener {
   @EventHandler()
   throwError(event: TestMessageEvent) {
-    const emptyArr = [];
-    emptyArr[0].unexistentMethod();
+    generateException();
   }
 }
 
@@ -20,11 +24,27 @@ class RegularTestListener extends BucketEventListener {
   }
 }
 
-const eventManager = useEventManager();
-eventManager.registerEvents(new TestListenerWithError());
-eventManager.registerEvents(new RegularTestListener());
+test('Handle exception on class handler', () => {
+  const eventManager = newEventManager();
+  eventManager.registerEvents(new TestListenerWithError());
+  eventManager.registerEvents(new RegularTestListener());
 
-test('Exception handling', () => {
+  const myParentEvent = new TestMessageEvent();
+  console.log('It is normal for the following line to show an error in console.');
+  eventManager.fire(myParentEvent);
+
+  expect(myParentEvent.message).toBe('hello! 🐙');
+});
+
+test('Handle exception on functional handler', () => {
+  const eventManager = newEventManager();
+  // Functional handler with error
+  eventManager.on(TestMessageEvent, generateException);
+
+  eventManager.on(TestMessageEvent, (event) => {
+    event.message += ' 🐙';
+  });
+
   const myParentEvent = new TestMessageEvent();
   console.log('It is normal for the following line to show an error in console.');
   eventManager.fire(myParentEvent);
