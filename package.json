@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "tsc --declaration",
-    "test": "vitest"
+    "test": "vitest --silent"
   },
   "author": "Pragmare",
   "license": "ISC",
